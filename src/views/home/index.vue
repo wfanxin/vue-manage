@@ -55,7 +55,7 @@ import {getData} from '../../api/data.js'
 import * as echarts from 'echarts'
 
 export default {
-    name: 'HomeIndex',
+    name: 'Home',
     data() {
         return {
             userImg: require('@/assets/images/user.png'),

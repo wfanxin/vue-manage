@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import Layout from '@/views/Layout.vue'
 
 // 解决ElementUI导航栏中的vue-router在3.0版本以上重复点菜单报错问题
 const originalPush = VueRouter.prototype.push
@@ -11,27 +12,27 @@ Vue.use(VueRouter)
 
 const routes = [
     {
-        path: '/',
-        name: 'Main',
-        component: () => import('@/views/Main.vue'),
+        path: '',
+        name: 'Layout',
+        component: Layout,
         children: [
             {
+                path: '/',
+                redirect: '/home', // 重定向
+            },
+            {
                 path: '/home',
-                name: 'home',
                 component: () => import('@/views/home'),
             },
             {
                 path: '/user',
-                name: 'user',
                 component: () => import('@/views/user'),
             }
         ]
     }
 ]
 
-const router = new VueRouter({
+export default new VueRouter({
     mode: 'history',
     routes
 })
-
-export default router

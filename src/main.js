@@ -1,30 +1,16 @@
 import Vue from 'vue'
-// import {Button, Radio, Row, Col, Link, Container, Header, Footer, Main, Aside} from 'element-ui'
-import ElementUi from 'element-ui'
-import 'element-ui/lib/theme-chalk/index.css'
 import App from '@/App.vue'
 
-import router from '@/router'
-import store from '@/store'
-import '@/api/mock'
+import router from '@/router' // 路由
+import store from '@/store' // 状态管理
 
-import http from 'axios'
+import '@/plugins/element-ui' // element组件
+import '@/api/mock' // 数据模拟
+
+import http from 'axios' // 数据请求
+Vue.prototype.$http = http
 
 Vue.config.productionTip = false
-
-Vue.use(ElementUi)
-// Vue.use(Button)
-// Vue.use(Radio)
-// Vue.use(Row)
-// Vue.use(Col)
-// Vue.use(Link)
-// Vue.use(Container)
-// Vue.use(Header)
-// Vue.use(Footer)
-// Vue.use(Main)
-// Vue.use(Aside)
-
-Vue.prototype.$http = http
 
 new Vue({
   router,

@@ -10,67 +10,41 @@
         </el-submenu>
     </el-menu>
 </template>
-<style lang="less" scoped>
-.el-menu-vertical-demo:not(.el-menu--collapse) {
-    width: 200px;
-    min-height: 400px;
-}
 
-.el-menu {
-    height: 100%;
-    border: none;
-    h3 {
-        color: #fff;
-        text-align: center;
-        line-height: 48px;
-    }
-}
-</style>
 <script>
-export default {
-    data() {
-        return {
-            menu: [{
-                path: '/home',
-                name: 'home',
-                label: '首页',
-                icon: 's-home',
-                url: 'Home/Home'
-            }, {
-                path: '/mall',
-                name: 'mall',
-                label: '商品管理',
-                icon: 'video-play',
-                url: 'MallManage/MallManage'
-            }, {
-                path: '/user',
-                name: 'user',
-                label: '用户管理',
-                icon: 'user',
-                url: 'UserManage/UserManage'
-            }, {
-                path: '/other',
-                name: 'other',
-                label: '其他',
-                icon: 'location',
-                children: [{
-                    path: '/page1',
-                    name: 'page1',
-                    label: '页面1',
-                    icon: 'setting',
-                    url: 'Other/PageOne'
+    export default {
+        data() {
+            return {
+                menu: [{
+                    path: '/home',
+                    label: '首页',
+                    icon: 's-home'
                 }, {
-                    path: '/page2',
-                    name: 'page2',
-                    label: '页面2',
-                    icon: 'setting',
-                    url: 'Other/PageTwo'
+                    path: '/mall',
+                    label: '商品管理',
+                    icon: 'video-play'
+                }, {
+                    path: '/user',
+                    label: '用户管理',
+                    icon: 'user'
+                }, {
+                    path: '/other',
+                    label: '其他',
+                    icon: 'location',
+                    children: [{
+                        path: '/page1',
+                        label: '页面1',
+                        icon: 'setting'
+                    }, {
+                        path: '/page2',
+                        label: '页面2',
+                        icon: 'setting'
+                    }]
                 }]
-            }]
-        };
-    },
-    computed: {
-        noChildren() {
+            };
+        },
+        computed: {
+            noChildren() {
                 return this.menu.filter(item => !item.children)
             },
             hasChildren() {
@@ -79,9 +53,9 @@ export default {
             isCollapse() {
                 return this.$store.state.tab.isCollapse
             }
-    },
-    methods: {
-        handleOpen(key, keyPath) {
+        },
+        methods: {
+            handleOpen(key, keyPath) {
                 console.log(key, keyPath);
             },
             handleClose(key, keyPath) {
@@ -89,9 +63,26 @@ export default {
             },
             clickMenu(item) {
                 this.$router.push({
-                    name: item.name
+                    path: item.path
                 })
             }
+        }
     }
-}
 </script>
+
+<style lang="less" scoped>
+    .el-menu-vertical-demo:not(.el-menu--collapse) {
+        width: 200px;
+        min-height: 400px;
+    }
+
+    .el-menu {
+        height: 100%;
+        border: none;
+        h3 {
+            color: #fff;
+            text-align: center;
+            line-height: 48px;
+        }
+    }
+</style>
