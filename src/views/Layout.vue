@@ -15,15 +15,15 @@
 </template>
 
 <script>
-import CommonAside from '../components/CommonAside.vue'
-import CommonHeader from '../components/CommonHeader.vue'
-export default {
-    name: 'Layout',
-    components: {
-        CommonAside,
-        CommonHeader
+    import CommonAside from '../components/CommonAside.vue'
+    import CommonHeader from '../components/CommonHeader.vue'
+    export default {
+        name: 'Layout',
+        components: {
+            CommonAside,
+            CommonHeader
+        }
     }
-}
 </script>
 
 <style lang="less" scoped>
@@ -32,8 +32,9 @@ export default {
     }
     .el-header{
         background-color: #333;
+        padding: 0;
     }
     .el-main{
-        padding-top: 0;
+        padding-top: 20px;
     }
 </style>

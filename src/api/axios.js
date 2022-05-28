@@ -1,5 +1,5 @@
 import axios from 'axios'
-import config from '../config'
+import config from '../config' // 配置
 
 const baseUrl = process.env.NODE_ENV === 'development' ? config.baseUrl.dev : config.baseUrl.pro
 
@@ -8,19 +8,20 @@ class HttpRequest {
         this.baseUrl = baseUrl
     }
 
+    // 内置配置
     getInsideConfig() {
-        const config = {
+        return {
             baseUrl: this.baseUrl,
             header: {}
         }
-        return config
     }
 
+    // 拦截器
     interceptors (instance) {
         // 添加请求拦截器
-        instance.interceptors.request.use(function (config) {
+        instance.interceptors.request.use(function (request) {
             // 在发送请求之前做些什么
-            return config;
+            return request;
         }, function (error) {
             // 对请求错误做些什么
             return Promise.reject(error);
@@ -36,10 +37,11 @@ class HttpRequest {
         });
     }
 
+    // 请求
     request(options) {
-        const instance = axios.create()
-        options = {...this.getInsideConfig, ...options}
-        this.interceptors(instance)
+        const instance = axios.create() // 创建实例
+        options = {...this.getInsideConfig, ...options} // 合并请求参数
+        this.interceptors(instance) // 添加拦截器
         return instance(options)
     }
 }
