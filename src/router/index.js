@@ -13,23 +13,23 @@ Vue.use(VueRouter)
 const routes = [{
     path: '/',
     component: Layout,
-    redirect: 'home', // 重定向
+    redirect: '/home', // 重定向
     children: [{
-        path: 'home',
+        path: '/home',
         label: '首页',
         icon: 's-home',
         component: () => import('@/views/home'),
     }, {
-        path: 'mall',
+        path: '/mall',
         label: '商品管理',
         icon: 'video-play'
     }, {
-        path: 'user',
+        path: '/user',
         label: '用户管理',
         icon: 'user',
         component: () => import('@/views/user'),
     }, {
-        path: 'other',
+        path: '/other',
         label: '其他',
         icon: 'location',
         children: [{

@@ -9,7 +9,7 @@
         @close="handleClose"
         :collapse="isCollapse">
         <div class="logo">{{isCollapse ? 'H' : '后台管理系统'}}</div>
-        <el-menu-item @click="clickMenu(item)" v-for="item in noChildren" :key="item.path" :index="item.path">
+        <el-menu-item @click="clickMenu(item.path)" v-for="item in noChildren" :key="item.path" :index="item.path">
             <i :class="'el-icon-'+item.icon"></i>
             <span slot="title">{{item.label}}</span>
         </el-menu-item>
@@ -19,7 +19,7 @@
                 <span slot="title">{{item.label}}</span>
             </template>
             <el-menu-item-group v-for="subItem in item.children" :key="item.path+'/'+subItem.path">
-                <el-menu-item @click="clickMenu(subItem)" :index="item.path+'/'+subItem.path">{{subItem.label}}</el-menu-item>
+                <el-menu-item @click="clickMenu(item.path+'/'+subItem.path)" :index="item.path+'/'+subItem.path">{{subItem.label}}</el-menu-item>
             </el-menu-item-group>
         </el-submenu>
     </el-menu>
@@ -27,40 +27,15 @@
 
 <script>
     export default {
-        data() {
-            return {
-                menu: [{
-                    path: '/home',
-                    label: '首页',
-                    icon: 's-home'
-                }, {
-                    path: '/mall',
-                    label: '商品管理',
-                    icon: 'video-play'
-                }, {
-                    path: '/user',
-                    label: '用户管理',
-                    icon: 'user'
-                }, {
-                    path: '/other',
-                    label: '其他',
-                    icon: 'location',
-                    children: [{
-                        path: 'page1',
-                        label: '页面1'
-                    }, {
-                        path: 'page2',
-                        label: '页面2'
-                    }]
-                }]
-            };
-        },
         computed: {
+            menuList() {
+                return this.$store.state.menu.menuList
+            },
             noChildren() {
-                return this.menu.filter(item => !item.children)
+                return this.menuList.filter(item => !item.children)
             },
             hasChildren() {
-                return this.menu.filter(item => item.children)
+                return this.menuList.filter(item => item.children)
             },
             isCollapse() {
                 return this.$store.state.tab.isCollapse
@@ -76,9 +51,9 @@
                 console.log(key, keyPath);
             },
             // 点击菜单
-            clickMenu(item) {
+            clickMenu(path) {
                 this.$router.push({
-                    path: item.path
+                    path
                 })
             }
         }
