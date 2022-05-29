@@ -9,7 +9,7 @@
         @close="handleClose"
         :collapse="isCollapse">
         <div class="logo">{{isCollapse ? 'H' : '后台管理系统'}}</div>
-        <el-menu-item @click="clickMenu(item.path)" v-for="item in noChildren" :key="item.path" :index="item.path">
+        <el-menu-item @click="clickMenu(item)" v-for="item in noChildren" :key="item.path" :index="item.path">
             <i :class="'el-icon-'+item.icon"></i>
             <span slot="title">{{item.label}}</span>
         </el-menu-item>
@@ -18,8 +18,8 @@
                 <i :class="'el-icon-'+item.icon"></i>
                 <span slot="title">{{item.label}}</span>
             </template>
-            <el-menu-item-group v-for="subItem in item.children" :key="item.path+'/'+subItem.path">
-                <el-menu-item @click="clickMenu(item.path+'/'+subItem.path)" :index="item.path+'/'+subItem.path">{{subItem.label}}</el-menu-item>
+            <el-menu-item-group v-for="subItem in item.children" :key="subItem.path">
+                <el-menu-item @click="clickMenu(subItem)" :index="subItem.path">{{subItem.label}}</el-menu-item>
             </el-menu-item-group>
         </el-submenu>
     </el-menu>
@@ -51,10 +51,11 @@
                 console.log(key, keyPath);
             },
             // 点击菜单
-            clickMenu(path) {
+            clickMenu(item) {
                 this.$router.push({
-                    path
+                    path: item.path
                 })
+                this.$store.commit('tab/selectMenu', item)
             }
         }
     }

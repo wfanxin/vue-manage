@@ -22,7 +22,8 @@ const routes = [{
     }, {
         path: '/mall',
         label: '商品管理',
-        icon: 'video-play'
+        icon: 'video-play',
+        component: () => import('@/views/mall'),
     }, {
         path: '/user',
         label: '用户管理',
@@ -33,16 +34,33 @@ const routes = [{
         label: '其他',
         icon: 'location',
         children: [{
-            path: 'page1',
-            label: '页面1'
+            path: 'pageOne',
+            label: '页面一',
+            component: () => import('@/views/other/pageOne'),
         }, {
-            path: 'page2',
-            label: '页面2'
+            path: 'pageTwo',
+            label: '页面二',
+            component: () => import('@/views/other/pageTwo'),
         }]
     }]
 }]
 
+// 后台菜单
 export const menuList = routes[0].children // 分别暴露需用变量名
+
+// 后台菜单路由处理
+const realMenuRoutes = [];
+for (const menu of menuList) {
+    if (menu.children) { // 有子级
+        for (const child of menu.children) {
+            child.path = menu.path+'/'+child.path // 也会影响menuList
+            realMenuRoutes.push(child)
+        }
+    } else { // 无子级
+        realMenuRoutes.push(menu)
+    }
+}
+routes[0].children = realMenuRoutes // 替换为处理后的数据
 
 export default new VueRouter({
     mode: 'history',
