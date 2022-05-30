@@ -29,7 +29,7 @@
                 :inline="true"
                 ref="searchForm"
             >
-                <el-button type="primary" @click="getList">搜索</el-button>
+                <el-button type="primary" @click="getList(searchForm.keyword)">搜索</el-button>
             </common-form>  
         </div>
         <common-table
@@ -117,7 +117,7 @@
                         label: '年龄'
                     },
                     {
-                        prop: 'sex',
+                        prop: 'sexLabel',
                         label: '性别'
                     },
                     {
@@ -132,10 +132,14 @@
                     }
                 ],
                 config: {
+                    loading: false,
                     page: 1,
                     total: 30
                 }
             }
+        },
+        created() {
+            this.getList()
         },
         methods: {
             initOperateForm() {
@@ -148,36 +152,70 @@
                 }
             },
             addUser() {
-                this.isShow = true
                 this.operateType = 'add'
+                this.isShow = true
                 this.initOperateForm()
             },
             confirm() {
                 if (this.operateType === 'edit') {
                     this.$http.post('/user/edit', this.operateForm).then(res => {
                         this.isShow = false
+                        this.getList()
                     })
                 } else {
                     this.$http.post('/user/add', this.operateForm).then(res => {
-                        console.log(res)
                         this.isShow = false
+                        this.getList()
                     })
                 }
             },
-            getList() {
-                
+            getList(name = '') {
+                this.config.loading = true
+                name ? this.config.page = 1 : ''
+                getList({
+                    page: this.config.page,
+                    name
+                }).then(res => {
+                    console.log(res)
+                    this.tableData = res.data.list.map(item => {
+                        item.sexLabel = item.sex === 0 ? '女' : '男'
+                        return item
+                    })
+                    this.config.total = res.data.count
+                    this.config.loading = false
+                })
             },
-            editUser() {
-
+            editUser(row) {
+                this.operateType = 'edit'
+                this.isShow = true
+                this.operateForm = row
             },
-            delUser() {
-
+            delUser(row) {
+                this.$confirm('此操作将删除该用户，是否继续？', '提示', {
+                    confirmButtonText: '确认',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    const id = row.id
+                    this.$http.post('user/del', {
+                        param: { id }
+                    }).then(() => {
+                        this.$message({
+                            type: 'success',
+                            message: '删除成功'
+                        })
+                        this.getList()
+                    })
+                })
             }
         }
     }
 </script>
 
 <style lang="less" scoped>
+    .manage{
+        height: 100%;
+    }
     .manage-header{
         display: flex;
         justify-content: space-between;

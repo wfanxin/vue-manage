@@ -2,16 +2,16 @@ import Mock from 'mockjs'
 
 // get请求从config.url获取参数，post从config.body中获取参数
 function param2Obj(url) {
-    const serch = url.split('?')[1]
-    if (!serch) {
+    const search = url.split('?')[1]
+    if (!search) {
         return {}
     }
     return JSON.parse(
         '{"' +
         decodeURIComponent(search) // 对被转码的地址进行解码
             .replace(/"/g, '\\"')
-            .replace(/"/g, '\\"')
-            .replace(/"/g, '\\"') +
+            .replace(/&/g, '","')
+            .replace(/=/g, '":"') +
         '"}'
     )
 }
@@ -41,6 +41,7 @@ export default {
      */
     getUserList: config => {
         const { name, page = 1, limit = 20 } = param2Obj(config.url)
+        console.log(config.url)
         // 获取符合条件的数据
         const mockList = List.filter(user => {
             if (name && user.name.indexOf(name) === -1 && user.address.indexOf(name) === -1) {
@@ -50,6 +51,11 @@ export default {
         })
         // 对数据进行分页
         const pageList = mockList.filter((item, index) => index < limit * page && index >= limit * (page -1))
+        return {
+            code: 200,
+            count: mockList.length,
+            list: pageList
+        }
     },
 
     /**
