@@ -29,14 +29,14 @@
                 :inline="true"
                 ref="searchForm"
             >
-                <el-button type="primary" @click="getList(searchForm.keyword)">搜索</el-button>
+                <el-button type="primary" @click="getList">搜索</el-button>
             </common-form>  
         </div>
         <common-table
             :tableData="tableData"
             :tableLabel="tableLabel"
             :config="config"
-            @changePage="getList"
+            @changePage="changePage"
             @edit="editUser"
             @del="delUser"
         >
@@ -104,6 +104,7 @@
                     }
                 ],
                 searchForm: {
+                    last_keyword: '',
                     keyword: ''
                 },
                 tableData: [],
@@ -169,14 +170,16 @@
                     })
                 }
             },
-            getList(name = '') {
+            getList() {
                 this.config.loading = true
-                name ? this.config.page = 1 : ''
+                if (this.searchForm.keyword !== this.searchForm.last_keyword) { // 重新搜索
+                    this.config.page = 1
+                    this.searchForm.last_keyword = this.searchForm.keyword
+                }
                 getList({
                     page: this.config.page,
-                    name
+                    name: this.searchForm.keyword
                 }).then(res => {
-                    console.log(res)
                     this.tableData = res.data.list.map(item => {
                         item.sexLabel = item.sex === 0 ? '女' : '男'
                         return item
@@ -184,6 +187,10 @@
                     this.config.total = res.data.count
                     this.config.loading = false
                 })
+            },
+            changePage(page) {
+                this.config.page = page
+                this.getList()
             },
             editUser(row) {
                 this.operateType = 'edit'
@@ -197,8 +204,8 @@
                     type: 'warning'
                 }).then(() => {
                     const id = row.id
-                    this.$http.post('user/del', {
-                        param: { id }
+                    this.$http.post('/user/del', {
+                        id
                     }).then(() => {
                         this.$message({
                             type: 'success',

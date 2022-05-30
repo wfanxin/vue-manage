@@ -41,7 +41,6 @@ export default {
      */
     getUserList: config => {
         const { name, page = 1, limit = 20 } = param2Obj(config.url)
-        console.log(config.url)
         // 获取符合条件的数据
         const mockList = List.filter(user => {
             if (name && user.name.indexOf(name) === -1 && user.address.indexOf(name) === -1) {
@@ -87,7 +86,7 @@ export default {
      * @return {*}
      */
     deleteUser: config => {
-        const { id } = param2Obj(config.url)
+        const { id } = JSON.parse(config.body)
         if (!id) {
             return {
                 code: -999,
