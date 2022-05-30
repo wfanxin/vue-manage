@@ -32,15 +32,27 @@
                 <el-button type="primary" @click="getList">搜索</el-button>
             </common-form>  
         </div>
+        <common-table
+            :tableData="tableData"
+            :tableLabel="tableLabel"
+            :config="config"
+            @changePage="getList"
+            @edit="editUser"
+            @del="delUser"
+        >
+        </common-table>
     </div>
 </template>
 
 <script>
     import CommonForm from '../../components/CommonForm.vue'
+    import CommonTable from '../../components/CommonTable.vue'
+    import { getList } from '../../api/data'
     export default {
         name: 'User',
         components: {
-            CommonForm
+            CommonForm,
+            CommonTable
         },
         data() {
             return {
@@ -50,11 +62,6 @@
                     {
                         model: 'name',
                         label: '姓名',
-                        type: 'input'
-                    },
-                    {
-                        model: 'age',
-                        label: '年龄',
                         type: 'input'
                     },
                     {
@@ -71,6 +78,11 @@
                                 value: 0
                             }
                         ]
+                    },
+                    {
+                        model: 'age',
+                        label: '年龄',
+                        type: 'input'
                     },
                     {
                         model: 'birth',
@@ -93,6 +105,35 @@
                 ],
                 searchForm: {
                     keyword: ''
+                },
+                tableData: [],
+                tableLabel: [
+                    {
+                        prop: 'name',
+                        label: '姓名'
+                    },
+                    {
+                        prop: 'age',
+                        label: '年龄'
+                    },
+                    {
+                        prop: 'sex',
+                        label: '性别'
+                    },
+                    {
+                        prop: 'birth',
+                        label: '出生日期',
+                        width: 200
+                    },
+                    {
+                        prop: 'address',
+                        label: '地址',
+                        width: 320
+                    }
+                ],
+                config: {
+                    page: 1,
+                    total: 30
                 }
             }
         },
@@ -110,7 +151,6 @@
                 this.isShow = true
                 this.operateType = 'add'
                 this.initOperateForm()
-
             },
             confirm() {
                 if (this.operateType === 'edit') {
@@ -119,11 +159,18 @@
                     })
                 } else {
                     this.$http.post('/user/add', this.operateForm).then(res => {
+                        console.log(res)
                         this.isShow = false
                     })
                 }
             },
             getList() {
+                
+            },
+            editUser() {
+
+            },
+            delUser() {
 
             }
         }
