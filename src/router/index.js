@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Layout from '@/views/Layout.vue'
+import Login from '@/views/login'
 
 // 解决ElementUI导航栏中的vue-router在3.0版本以上重复点菜单报错问题
 const originalPush = VueRouter.prototype.push
@@ -43,6 +44,9 @@ const routes = [{
             component: () => import('@/views/other/pageTwo'),
         }]
     }]
+}, {
+    path: '/login',
+    component: Login
 }]
 
 // 后台菜单
