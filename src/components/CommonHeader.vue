@@ -16,7 +16,7 @@
                 </span>
                 <el-dropdown-menu slot="dropdown">
                     <el-dropdown-item icon="el-icon-user">个人中心</el-dropdown-item>
-                    <el-dropdown-item icon="el-icon-switch-button">退出</el-dropdown-item>
+                    <el-dropdown-item icon="el-icon-switch-button" @click.native="logout">退出</el-dropdown-item>
                 </el-dropdown-menu>
             </el-dropdown>
         </div>
@@ -59,6 +59,10 @@
         methods: {
             handleMenu() {
                 this.$store.commit('tab/collapseMenu')
+            },
+            logout() {
+                this.$store.commit('user/clearToken')
+                this.$router.push({path: '/login'})
             }
         }
     }

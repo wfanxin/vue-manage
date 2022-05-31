@@ -12,6 +12,18 @@ Vue.prototype.$http = http
 
 Vue.config.productionTip = false
 
+router.beforeEach((to, from, next) => {
+	store.commit('user/getToken')
+	const token = store.state.user.token
+	if (!token && to.path !== '/login') {
+		next({path: '/login'})
+	} else if (token && to.path === '/login') {
+		next({path: '/'})
+	} else {
+		next()
+	}
+})
+
 new Vue({
 	router,
 	store,

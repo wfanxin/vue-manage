@@ -64,7 +64,14 @@
         },
         methods: {
             login() {
-                alert('登录')
+                this.$http.post('/user/getMenu', this.form).then(({data: res}) => {
+                    if (res.code === 200) {
+                        this.$store.commit('user/setToken', res.data.token)
+                        this.$router.push({path: '/'})
+                    } else {
+                        this.$message.warning(res.data.message)
+                    }
+                })
             }
         }
     }
