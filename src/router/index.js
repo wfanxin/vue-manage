@@ -46,7 +46,10 @@ const routes = [{
     }]
 }, {
     path: '/login',
-    component: Login
+    component: Login,
+    meta: {
+        requireLogin: false
+    }
 }]
 
 // 后台菜单
