@@ -11,7 +11,7 @@ VueRouter.prototype.push = function push (location) {
 
 Vue.use(VueRouter)
 
-const routes = [{
+export const routes = [{
     path: '/',
     component: Layout,
     redirect: '/home', // 重定向
@@ -19,28 +19,34 @@ const routes = [{
         path: '/home',
         label: '首页',
         icon: 's-home',
+        permission: 'home',
         component: () => import('@/views/home'),
     }, {
         path: '/mall',
         label: '商品管理',
         icon: 'video-play',
+        permission: 'mall',
         component: () => import('@/views/mall'),
     }, {
         path: '/user',
         label: '用户管理',
         icon: 'user',
+        permission: 'user',
         component: () => import('@/views/user'),
     }, {
         path: '/other',
         label: '其他',
         icon: 'location',
+        permission: 'other',
         children: [{
             path: 'pageOne',
             label: '页面一',
+            permission: 'other/pageOne',
             component: () => import('@/views/other/pageOne'),
         }, {
             path: 'pageTwo',
             label: '页面二',
+            permission: 'other/pageTwo',
             component: () => import('@/views/other/pageTwo'),
         }]
     }]
@@ -51,23 +57,6 @@ const routes = [{
         requireLogin: false
     }
 }]
-
-// 后台菜单
-export const menuList = routes[0].children // 分别暴露需用变量名
-
-// 后台菜单路由处理
-const realMenuRoutes = [];
-for (const menu of menuList) {
-    if (menu.children) { // 有子级
-        for (const child of menu.children) {
-            child.path = menu.path+'/'+child.path // 也会影响menuList
-            realMenuRoutes.push(child)
-        }
-    } else { // 无子级
-        realMenuRoutes.push(menu)
-    }
-}
-routes[0].children = realMenuRoutes // 替换为处理后的数据
 
 export default new VueRouter({
     mode: 'history',

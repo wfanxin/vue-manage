@@ -67,6 +67,9 @@
                 this.$http.post('/user/getMenu', this.form).then(({data: res}) => {
                     if (res.code === 200) {
                         this.$store.commit('user/setToken', res.data.token)
+                        this.$store.commit('menu/clearMenu')
+                        this.$store.commit('menu/setMenu', res.data.menu)
+                        this.$store.commit('menu/addRoute', this.$router)
                         this.$router.push({path: '/'})
                     } else {
                         this.$message.warning(res.data.message)

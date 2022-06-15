@@ -46,14 +46,19 @@
                 const currentMenu = this.menuList.filter(item => {
                     return item.path === father_path
                 })
+
                 let currentMenuChildren = []
-                if (currentMenu[0].children) {
+                if (currentMenu.length > 0 && currentMenu[0].children) {
                     currentMenuChildren = currentMenu[0].children.filter(child => {
                         return child.path === path
                     })
                 }
                 
-                return [currentMenu[0], ...currentMenuChildren]
+                if (currentMenu.length > 0) {
+                    return [currentMenu[0], ...currentMenuChildren]
+                } else {
+                    return []
+                }
             }
         },
         methods: {

@@ -9,9 +9,7 @@ export default {
                 code: 200,
                 data: {
                     menu: [
-                        {
-                            path: '/'
-                        }
+                        '*'
                     ],
                     token: Mock.Random.guid(),
                     message: '获取成功'
@@ -22,10 +20,29 @@ export default {
                 code: 200,
                 data: {
                     menu: [
-                        {
-                            path: '/'
-                        }
+                        'home',
+                        'user'
                     ],
+                    token: Mock.Random.guid(),
+                    message: '获取成功'
+                }
+            }
+        } else if (username === 'test' && password === '123456') {
+            return {
+                code: 200,
+                data: {
+                    menu: [
+                        'home'
+                    ],
+                    token: Mock.Random.guid(),
+                    message: '获取成功'
+                }
+            }
+        } else if (username === 'other' && password === '123456') {
+            return {
+                code: 200,
+                data: {
+                    menu: [],
                     token: Mock.Random.guid(),
                     message: '获取成功'
                 }
