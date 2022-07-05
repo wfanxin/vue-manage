@@ -1740,6 +1740,11 @@ ajv@^8.0.0, ajv@^8.0.1, ajv@^8.8.0:
     require-from-string "^2.0.2"
     uri-js "^4.2.2"
 
+amei-date-format@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/amei-date-format/-/amei-date-format-1.0.1.tgz#58ab6787f9a45e0703dce4f4326677c9eb864084"
+  integrity sha512-ICds8z6ZpOlod79WZt4aGFUnerP4ZYdgbi45n1QyCWnDKV+KKoefKtTrI9Krjbk1DEee8XLjcu4Plvc5UfYqnA==
+
 ansi-colors@^4.1.1:
   version "4.1.1"
   resolved "https://registry.npmmirror.com/ansi-colors/-/ansi-colors-4.1.1.tgz#cbb9ae256bf750af1eab344f229aa27fe94ba348"
@@ -3846,6 +3851,11 @@ joi@^17.4.0:
     "@sideway/address" "^4.1.3"
     "@sideway/formula" "^3.0.0"
     "@sideway/pinpoint" "^2.0.0"
+
+js-cookie@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/js-cookie/-/js-cookie-3.0.1.tgz#9e39b4c6c2f56563708d7d31f6f5f21873a92414"
+  integrity sha512-+0rgsUXZu4ncpPxRL+lNEptWMOWl9etvPHc/koSRp6MPwpRYAhmk0dUG00J4bxVV3r9uUzfo24wW0knS07SKSw==
 
 js-message@1.0.7:
   version "1.0.7"
