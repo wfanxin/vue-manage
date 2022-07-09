@@ -1740,10 +1740,10 @@ ajv@^8.0.0, ajv@^8.0.1, ajv@^8.8.0:
     require-from-string "^2.0.2"
     uri-js "^4.2.2"
 
-amei-date-format@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/amei-date-format/-/amei-date-format-1.0.2.tgz#8d90b6887107170017a3b098f199360977239fc2"
-  integrity sha512-wwDDi3PcKzNok7q0SIrHCyVwOrPrKgpEwU38Lq8KB7y1OMKlwCP68RI+lR4DasmG7T8lhG0eyjxszXmBOnpvFA==
+amei-date-format@1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/amei-date-format/-/amei-date-format-1.1.0.tgz#cbf659353bea897f7614fd1a69945a45cd721f7a"
+  integrity sha512-S7XcZVxnTbunSnTPejpyuWadHe26pehj8PuHH+ZoF8e7vOnQ4WtYEMxiGPh01Olv6BF/64K7NTPhTBO5Wq4vPw==
 
 ansi-colors@^4.1.1:
   version "4.1.1"

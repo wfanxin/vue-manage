@@ -1,10 +1,10 @@
 import Mock from 'mockjs'
-import { AmeiData } from 'amei-date-format'
+import {date, strtotime} from 'amei-date-format'
 
 let len = 9
 let List = []
 let YearMonth = []
-let today = AmeiData.strtotime(AmeiData.date('Y-m-01')) // 当月初
+let today = strtotime(date('Y-m-01')) // 当月初
 
 export default {
     getStatisticalData: () => {
@@ -20,7 +20,7 @@ export default {
                 })
             )
 
-            YearMonth.push(AmeiData.date('Ym', AmeiData.strtotime('-' + (len - i - 1) + 'months', today)))
+            YearMonth.push(date('Ym', strtotime('-' + (len - i - 1) + 'months', today)))
         }
 
         return {
